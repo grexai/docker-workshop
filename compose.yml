@@ -1,0 +1,20 @@
+
+services:
+  cuda_container:
+    build: .
+    image: workshop_build_file
+    container_name: workshop_container_compose
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - workshop_vol1:/workspace
+    stdin_open: true
+    tty: true
+volumes:
+  workshop_vol1:

@@ -1,0 +1,19 @@
+services:
+  cuda-container:
+    image: nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04
+    build:
+      context: .
+    container_name: mitosis-detection
+    volumes:
+      - ./data:/data
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
